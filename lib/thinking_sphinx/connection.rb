@@ -97,6 +97,12 @@ module ThinkingSphinx::Connection
   end
 
   class MRI < Client
+    @@client_class = Mysql2::Client
+
+    def self.client_class=(c)
+      @@client_class = c
+    end
+
     def initialize(options)
       @options = options
     end
@@ -110,7 +116,7 @@ module ThinkingSphinx::Connection
     attr_reader :options
 
     def client
-      @client ||= Mysql2::Client.new({
+      @client ||= @@client_class.new({
         :flags => Mysql2::Client::MULTI_STATEMENTS
       }.merge(options))
     rescue base_error => error
