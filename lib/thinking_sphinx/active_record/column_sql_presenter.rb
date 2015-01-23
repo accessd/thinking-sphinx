@@ -13,7 +13,7 @@ class ThinkingSphinx::ActiveRecord::ColumnSQLPresenter
     return __name if string?
     return nil unless exists?
 
-    "#{associations.alias_for(__stack)}.#{adapter.quote __name}"
+    "`#{associations.alias_for(__stack)}`.#{adapter.quote __name}"
   end
 
   private
